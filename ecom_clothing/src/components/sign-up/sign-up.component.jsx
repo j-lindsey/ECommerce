@@ -8,11 +8,11 @@ import { auth, createUserProfileDocument } from '../../firebase/firebase.utils';
 import './sign-up.styles.scss';
 
 class SignUp extends React.Component {
-    constuctor() {
+    constructor() {
         super();
 
         this.state = {
-            displayName = '',
+            displayName: '',
             email: '',
             password: '',
             confirmPassword: ''
@@ -35,12 +35,12 @@ class SignUp extends React.Component {
             createUserProfileDocument(user, { displayName });
 
             this.setState({
-                displayName = '',
+                displayName:'',
                 email: '',
                 password: '',
                 confirmPassword: ''
             });
-            
+
         } catch (error) {
             console.log(error);
         }
