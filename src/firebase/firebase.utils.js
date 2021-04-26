@@ -13,6 +13,8 @@ const Config = {
     measurementId: "G-B7HP76FYPW"
 };
 
+firebase.initializeApp(Config);
+
 export const createUserProfileDocument = async (userAuth, additionalData) => {
     if (!userAuth) return;
 
@@ -51,8 +53,21 @@ export const addCollectionAndDocuments = async (collectionKey, objectsToAdd) => 
     return await batch.commit()
 };
 
+export const convertCollectionsSnapshotToMap = (collections) => {
+    const transformedCollection = collections.docs.map((doc) => {
+        const { title, items } = doc.data();
 
-firebase.initializeApp(Config);
+        return {
+            routeName: encodeURI(title.toLowerCase()),
+            id: doc.id,
+            title,
+            items
+        };
+    });
+    return transformedCollection;
+};
+
+
 
 export const auth = firebase.auth();
 export const firestore = firebase.firestore();
